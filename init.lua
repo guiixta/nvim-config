@@ -42,3 +42,18 @@ end, { desc = "Substituir seleção atual no arquivo" })
 
 
 vim.keymap.set('n', '<leader>-', '<Cmd>nohlsearch<CR>', {silent = true})
+
+vim.keymap.set('n', '<leader>t', ':botright terminal<CR>', {desc = "Terminal open"})
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = "Sair do modo inserção do terminal" })
+vim.api.nvim_create_autocmd('TermOpen', {
+  group = vim.api.nvim_create_augroup('ConfigTerminalLocal', { clear = true }),
+  pattern = '*',
+  callback = function()
+    -- Define o atalho apenas para o buffer atual do terminal (<buffer> / buffer = 0)
+    vim.keymap.set('n', '<leader>t', '<Cmd>q!<CR>', { 
+      buffer = 0, 
+      desc = "Fechar terminal ativo", 
+      silent = true 
+    })
+  end,
+})
