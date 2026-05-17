@@ -57,3 +57,26 @@ vim.api.nvim_create_autocmd('TermOpen', {
     })
   end,
 })
+
+
+-- Mostra o erro em uma janela flutuante ao pausar o cursor em cima da linha
+vim.api.nvim_create_autocmd("CursorHold", {
+  buffer = bufnr,
+  callback = function()
+    local opts = {
+      focusable = false,
+      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      border = 'rounded',
+      source = 'always',
+      prefix = ' ',
+      scope = 'cursor',
+    }
+    vim.diagnostic.open_float(nil, opts)
+  end,
+})
+
+-- Ajusta o tempo de espera para o popup aparecer (padrão é 4000ms / 4 segundos)
+vim.o.updatetime = 300 -- 300 milissegundos é um bom equilíbrio
+
+-- Atalho para ver os errors no arquivo
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Abrir lista de diagnósticos do arquivo' })

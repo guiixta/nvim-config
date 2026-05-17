@@ -5,6 +5,7 @@ vim.call('plug#begin')
 
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 Plug('mason-org/mason.nvim')
+Plug('mason-org/mason-lspconfig.nvim')
 
 
 Plug('nvim-tree/nvim-tree.lua')
@@ -25,7 +26,10 @@ Plug('hrsh7th/nvim-cmp')
 Plug('numToStr/Comment.nvim')
 Plug('lukas-reineke/indent-blankline.nvim')
 Plug('brenton-leighton/multiple-cursors.nvim')
+Plug('ellisonleao/gruvbox.nvim')
 vim.call('plug#end')
+
+vim.cmd('colorscheme gruvbox')
 
 -- Habilitando highlight para  linguagens 
 require('nvim-treesitter').setup({
@@ -44,6 +48,10 @@ require("mason").setup({
             package_uninstalled = "✗"
         }
     }
+})
+
+require('mason-lspconfig').setup({
+	automatic_enable = true,
 })
 
 
